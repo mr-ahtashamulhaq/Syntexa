@@ -1,4 +1,4 @@
-# 🧠 Syntexa — Text Similarity Analyzer
+# 🧠 Syntexa - Text Similarity Analyzer
 
 Syntexa is a C++ project that compares two text files and evaluates how similar they are using both **word-level** and **phrase-level analysis**.
 
