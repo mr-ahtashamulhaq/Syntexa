@@ -5,66 +5,63 @@
 
 using namespace std;
 
-class Node
+class HistoryNode
 {
-    public:
-        Result data;
-        Node* next;
+public:
+    Result data;
+    HistoryNode* next;
 
-        Node(Result d)
-        {
-            data = d;
-            next = NULL; 
-        }
+    HistoryNode(Result d) : data(d), next(nullptr) {}
 };
 
 class History
 {
-    Node* top;
-    public:
-        History(){ top = NULL; }
-        void addResultInHistory(Result r)
-        {
-            Node* newNode = new Node(r);
+    HistoryNode* top;
 
-            newNode->next = top;
-            top = newNode;
+public:
+    History() : top(nullptr) {}
+
+    void addResultInHistory(Result r)
+    {
+        HistoryNode* newNode = new HistoryNode(r);
+        newNode->next = top;
+        top = newNode;
+    }
+
+    void undoLast()
+    {
+        if (top == nullptr)
+        {
+            cout << "\nNo History to UNDO!\n";
+            return;
         }
 
-        void undoLast()
+        HistoryNode* temp = top;
+        top = top->next;
+        delete temp;
+    }
+
+    void displayHistory()
+    {
+        if (top == nullptr)
         {
-            if(top == NULL)
-            {
-                cout<<"\nNo History to UNDO! "<<endl;
-            }
-            else
-            {
-                Node* temp = top;
-                top = top->next;
-                delete temp;
-            }
+            cout << "\n--- History is Empty ---\n";
+            return;
         }
-        void displayHistory()
+
+        cout << "\n--- HISTORY ---\n\n";
+
+        HistoryNode* temp = top;
+        int count = 1;
+
+        while (temp != nullptr)
         {
-            if(top == NULL)
-            {
-                cout<<"--- History is Empty! --- "<<endl;
-            }
-            else
-            {
-                cout<<"\n--- HISTORY ---"<<endl<<endl;
-                Node* temp = top;
-                int count = 1;
-                while (temp != NULL)
-                {
-                    cout<<count<<")"<<endl;
-                    cout<<"Word: "<<temp->data.wordPercentage<<"%"<<endl;
-                    cout<<"Phrase: "<<temp->data.phrasePercentage<<"%"<<endl;
-                    cout<<"Final: "<<temp->data.finalPercentage<<"%"<<endl;
-                    cout<<endl;
-                    temp = temp->next;
-                    count++;
-                }
-            }
+            cout << count++ << ")\n";
+            cout << "Word   : " << temp->data.wordPercentage << "%\n";
+            cout << "Phrase : " << temp->data.phrasePercentage << "%\n";
+            cout << "Final  : " << temp->data.finalPercentage << "%\n\n";
+
+            temp = temp->next;
         }
+    }
 };
