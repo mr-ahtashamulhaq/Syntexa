@@ -152,19 +152,19 @@ Result.h
 ### Attributes:
 
 ```cpp
-stack<Result> history;
+Stack history;
 ```
 
 ### Methods:
 
-* `void pushResult(Result r)`
+* `void addResultInHistory(Result r)`
   → Stores result (**uses Stack push**)
 
 * `void undoLast()`
   → Removes last result (**uses Stack pop**)
 
-* `void showHistory()`
-  → Displays all stored results (**iterate stack copy**)
+* `void displayHistory()`
+  → Displays all stored results
 
 ---
 
