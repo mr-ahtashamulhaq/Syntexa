@@ -1,257 +1,206 @@
-# 🧱 📁 Project Structure
+# 🧠 Syntexa — Text Similarity Analyzer
 
-```text
+Syntexa is a C++ project that compares two text files and evaluates how similar they are using both **word-level** and **phrase-level analysis**.
+
+It combines multiple data structures to produce a final similarity score and maintains a history of comparisons with undo support.
+
+---
+
+## 🚀 Features
+
+* 🔤 Word-based similarity using frequency mapping
+* 🧩 Phrase-based similarity using sliding window
+* 📊 Combined final score (weighted calculation)
+* 📚 History tracking using stack (with undo)
+* ⚡ Clean and efficient modular design
+
+---
+
+## 🏗️ Project Structure
+
+```
 Syntexa/
 │
 ├── main.cpp
-├── Document.h / Document.cpp
-├── Preprocessor.h / Preprocessor.cpp
-├── SimilarityEngine.h / SimilarityEngine.cpp
-├── PhraseDetector.h / PhraseDetector.cpp
-├── HistoryManager.h / HistoryManager.cpp
+├── Preprocessor.h
+├── SimilarityEngine.h
+├── PhraseDetector.h
+├── HistoryManager.h
 ├── Result.h
+├── Document.h
 │
-├── textA.txt
-├── textB.txt
+├── file1.txt
+├── file2.txt
 ```
 
 ---
 
-# 🧠 📦 CLASSES YOU WILL MAKE (FINAL LIST)
+## ⚙️ How It Works
 
-## 1. `Document`
+### Step 1: Input
 
-👉 Responsible for reading text files
+Reads two text files:
 
-### Attributes:
-
-```cpp
-string fileName;
-string content;
 ```
-
-### Methods:
-
-* `Document(string fileName)`
-  → Constructor, sets file name
-
-* `void loadContent()`
-  → Opens file and reads full text into `content` (**uses Array internally via string buffer**)
-
-* `string getContent()`
-  → Returns text content
-
----
-
-## 2. `Preprocessor`
-
-👉 Cleans and tokenizes text
-
-### Methods:
-
-* `vector<string> tokenize(string text)`
-  → Splits text into words (**uses Array/Vector**)
-
-* `void toLowerCase(string& text)`
-  → Converts all characters to lowercase InPlace
-
-* `void removePunctuation(string& text)`
-  → Removes punctuation symbols InPlace
-
----
-
-# ⚠️ Preprocessing Flow
-
-```cpp
-text → lowercase → remove punctuation → tokenize → vector<string>
+file1.txt
+file2.txt
 ```
 
 ---
 
-## 3. `SimilarityEngine`
+### Step 2: Preprocessing
 
-👉 Handles **word-level similarity**
+* Convert to lowercase
+* Remove punctuation
+* Tokenize into words
 
-### Attributes:
+---
 
-```cpp
-unordered_map<string, int> freqA;
-unordered_map<string, int> freqB;
+### Step 3: Word Similarity
+
+* Uses `unordered_map`
+* Counts:
+
+  * Common words
+  * Unique words
+
+[
+\text{Word Similarity} = \frac{\text{Common Words}}{\text{Unique Words}} \times 100
+]
+
+---
+
+### Step 4: Phrase Similarity
+
+* Uses **Queue (Linked List)**
+* Sliding window of size 3
+
+Example:
+
+```
+data structures are
+structures are important
+are important concepts
 ```
 
-### Methods:
-
-* `void buildFrequencyMap(vector<string> words, unordered_map<string,int>& freq)`
-  → Builds frequency map (**uses HashMap**)
-
-* `int countCommonWords()`
-  → Counts words present in both maps (**uses HashMap lookup**)
-
-* `int countUniqueWords()`
-  → Calculates union of words (**uses HashMap**)
-
-* `double computeWordSimilarity()`
-  → Returns similarity percentage
+[
+Phrase Similarity = (Matching Phrases ÷ Total Unique Phrases) × 100
+]
 
 ---
 
-## 4. `PhraseDetector`
+### Step 5: Final Score
 
-👉 Handles **phrase matching using Queue**
-
-### Methods:
-
-* `vector<string> generatePhrases(vector<string> words)`
-  → Creates 3-word phrases using **Queue (sliding window)**
-
-* `int countMatchingPhrases(vector<string> pA, vector<string> pB)`
-  → Counts matching phrases (**uses Array + optional HashMap for speed**)
-
-* `double computePhraseSimilarity(vector<string> pA, vector<string> pB)`
-  → Returns phrase similarity score
+[
+\text{Final Score} = (0.4 × Word Similarity) + (0.6 × Phrase Similarity)
+]
 
 ---
 
-# ⚠️ IMPORTANT (Queue Usage)
+### Step 6: History Management
 
-Inside `generatePhrases()`:
+* Stored using **Stack (Linked List)**
+* Supports:
 
-```cpp
-queue<string> q;
+  * View history
+  * Undo last comparison
+
+---
+
+## 🧪 Example Output
+
 ```
+==============================
+       TEXT SIMILARITY
+==============================
 
-👉 Purpose:
+Word Similarity   : 68.75%
+Phrase Similarity : 45.45%
+Final Score       : 54.77%
 
-* Maintain sliding window of size 3
-* Push word → if size == 3 → make phrase → pop
+==============================
 
----
+--- HISTORY ---
 
-## 5. `Result`
+1)
+Word   : 68.75%
+Phrase : 45.45%
+Final  : 54.77%
 
-👉 Simple data container
-Result.h 
-### Attributes:
-
-```cpp
-  string textA;
-  string textB;
-  double wordPercentage;
-  double phrasePercentage;
-  double finalPercentage;
-```
-
-(No methods needed OR just constructor)
-
----
-
-## 6. `HistoryManager`
-
-👉 Handles **Stack (history + undo)**
-
-### Attributes:
-
-```cpp
-Stack history;
-```
-
-### Methods:
-
-* `void addResultInHistory(Result r)`
-  → Stores result (**uses Stack push**)
-
-* `void undoLast()`
-  → Removes last result (**uses Stack pop**)
-
-* `void displayHistory()`
-  → Displays all stored results
-
----
-
-# 🔗 HOW EVERYTHING CONNECTS (FLOW)
-
-## 🔄 Execution Flow in `main.cpp`
-
-```cpp
-1. Load documents
-2. Preprocess text
-3. Generate tokens (Array)
-4. Build frequency maps (HashMap)
-5. Compute word similarity
-6. Generate phrases (Queue)
-7. Compute phrase similarity
-8. Combine scores
-9. Store in stack
-10. Display result
+==============================
 ```
 
 ---
 
-# 🧪 MAIN FUNCTION (LOGIC FLOW)
+## 🧰 Data Structures Used
 
-```cpp
-Document docA("textA.txt");
-Document docB("textB.txt");
+| Data Structure | Purpose                            |
+| -------------- | ---------------------------------- |
+| Vector         | Store words & phrases              |
+| HashMap        | Word frequency & lookup            |
+| Queue          | Phrase generation (sliding window) |
+| Stack          | History & undo functionality       |
 
-docA.loadContent();
-docB.loadContent();
+---
 
-Preprocessor prep;
+## 🛠️ How to Run
 
-string cleanA = prep.removePunctuation(prep.toLowerCase(docA.getContent()));
-string cleanB = prep.removePunctuation(prep.toLowerCase(docB.getContent()));
+### Compile
 
-vector<string> wordsA = prep.tokenize(cleanA);
-vector<string> wordsB = prep.tokenize(cleanB);
+```
+g++ main.cpp -o main
+```
 
-SimilarityEngine sim;
+### Run
 
-sim.buildFrequencyMap(wordsA, sim.freqA);
-sim.buildFrequencyMap(wordsB, sim.freqB);
-
-double wordScore = sim.computeWordSimilarity();
-
-PhraseDetector pd;
-
-vector<string> phrasesA = pd.generatePhrases(wordsA);
-vector<string> phrasesB = pd.generatePhrases(wordsB);
-
-double phraseScore = pd.computePhraseSimilarity(phrasesA, phrasesB);
-
-double finalScore = 0.4 * wordScore + 0.6 * phraseScore;
-
-Result res = {docA.getContent(), docB.getContent(), wordScore, phraseScore, finalScore};
-
-HistoryManager hm;
-hm.pushResult(res);
+```
+./main
 ```
 
 ---
 
-# 🎯 EXACT DATA STRUCTURE USAGE (CLEAR FOR VIVA)
+## 📄 Sample Input Files
 
-| Data Structure     | Where Used       | Purpose                          |
-| ------------------ | ---------------- | -------------------------------- |
-| **Array (vector)** | Token storage    | Store words & phrases            |
-| **HashMap**        | SimilarityEngine | Fast word lookup & frequency     |
-| **Queue**          | PhraseDetector   | Sliding window phrase generation |
-| **Stack**          | HistoryManager   | Store results & undo             |
+### file1.txt
 
----
+```
+Data structures are very important in programming.
+```
 
-# ⚠️ IMPORTANT DESIGN TIPS
+### file2.txt
 
-* Keep each class **small & focused**
-* Avoid mixing logic
-* Use **.h for declarations** and **.cpp for implementation**
+```
+Data structures are essential in coding and programming.
+```
 
 ---
 
-# 🔥 Final Advice
+## 🎯 Why This Project Matters
 
-This structure is:
+* Demonstrates practical use of multiple data structures
+* Shows real-world text analysis logic
+* Clean modular design improves readability and maintainability
+* Interactive features like history and undo add depth
 
-* Clean ✅
-* Modular ✅
-* Easy to debug ✅
-* Easy to explain in viva ✅
+---
+
+## 👨‍💻 Author
+
+Developed as a Data Structures project to demonstrate applied concepts in C++.
+
+---
+
+## 📌 Future Improvements
+
+* Menu-based interaction system
+* GUI interface
+* Support for larger documents
+* Advanced NLP techniques
+
+---
+
+## ⭐ Summary
+
+Syntexa combines clean design with core DSA concepts to build a functional and presentable text similarity system.
+
+---
