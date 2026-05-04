@@ -52,11 +52,11 @@ string content;
 * `vector<string> tokenize(string text)`
   → Splits text into words (**uses Array/Vector**)
 
-* `string toLowerCase(string text)`
-  → Converts all characters to lowercase
+* `void toLowerCase(string& text)`
+  → Converts all characters to lowercase InPlace
 
-* `string removePunctuation(string text)`
-  → Removes punctuation symbols
+* `void removePunctuation(string& text)`
+  → Removes punctuation symbols InPlace
 
 ---
 
@@ -130,15 +130,15 @@ queue<string> q;
 ## 5. `Result`
 
 👉 Simple data container
-
+Result.h 
 ### Attributes:
 
 ```cpp
-string textA;
-string textB;
-double wordScore;
-double phraseScore;
-double finalScore;
+  string textA;
+  string textB;
+  double wordPercentage;
+  double phrasePercentage;
+  double finalPercentage;
 ```
 
 (No methods needed OR just constructor)
