@@ -5,6 +5,8 @@
 #include "Preprocessor.h"
 #include "SimilarityEngine.h"
 #include "Result.h"
+#include "HistoryManager.h"
+
 using namespace std;
 
 int main()
@@ -44,9 +46,10 @@ int main()
     cout<<"Unique Words : "<<unique<<endl;
     cout<<"Similaroty percentage is : "<<wordSimilarityPercentage<<"%"<<endl;
     
-    Result R1(textA, textB,wordSimilarityPercentage, 9.0, 40.0 ); //added temporary numbers
-
-    
+    Result R1(textA, textB,wordSimilarityPercentage,50.0,80.0); //added temporary numbers
+    History H;
+    H.addResultInHistory(R1);
+    H.displayHistory();
     
     return 0;
 }
