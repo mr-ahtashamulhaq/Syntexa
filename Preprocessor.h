@@ -7,28 +7,29 @@ using namespace std;
 class Preprocessor
 {
     public:
-        string removePunctuation(string text)
+        void removePunctuation(string& text) //Change InPlace
         {
             string newText;
             int size = text.length();
+            int j = 0;
             for(int i = 0; i < size; i++)
             {
-                if(isalnum(text[i]) or text[i] == ' ')
+                if(isalnum(text[i]) || text[i] == ' ')
                 {
-                    newText += text[i];
+                    text[j] = text[i];
+                    j++;
                 }
             }
-            return newText;
+            text.resize(j); // .resize() keep only first j characters remove everything after that.
         }
 
-        string toLowerCase(string text)
+        void toLowerCase(string& text)
         {
             int size = text.length();
             for(int i = 0; i<size; i++)
             {
                 text[i] = tolower(text[i]);
             }
-            return text;
         }
 
         vector<string> tokenize(string text)
