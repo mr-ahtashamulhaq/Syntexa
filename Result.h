@@ -5,13 +5,15 @@ using namespace std;
 
 class Result
 {
+    public:
     string textA;
     string textB;
     double wordPercentage;
     double phrasePercentage;
     double finalPercentage;
 
-    public:
+        Result(){}
+        
         Result(string& textA, string& textB, double wordPercentage, double phrasePercentage, double finalPercentage)
         {
             this->textA = textA;
