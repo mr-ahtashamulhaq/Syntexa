@@ -1,18 +1,35 @@
 # 🧠 Syntexa - Text Similarity Analyzer
 
-Syntexa is a C++ project that compares two text files and evaluates how similar they are using both **word-level** and **phrase-level analysis**.
+Syntexa is a **DSA Semester Project** built in C++ that compares two text files and evaluates how similar they are using both word-level and phrase-level analysis.
 
-It combines multiple data structures to produce a final similarity score and maintains a history of comparisons with undo support.
+The goal was not just to build a working system, but to apply core data structure concepts in a clear and practical way.
+
+---
+
+## 🎓 Project Requirement
+
+As part of the semester, the project required:
+
+* Use of **minimum 4 data structures**
+* Clear justification of each structure
+* Proper implementation (not forced usage)
+
+We designed the system around:
+
+* Array (vector)
+* HashMap
+* Queue
+* Linked List (Stack implementation)
 
 ---
 
 ## 🚀 Features
 
-* 🔤 Word-based similarity using frequency mapping
-* 🧩 Phrase-based similarity using sliding window
-* 📊 Combined final score (weighted calculation)
-* 📚 History tracking using stack (with undo)
-* ⚡ Clean and efficient modular design
+* Word-based similarity using frequency mapping
+* Phrase-based similarity using sliding window
+* Combined final score using mathematical formula
+* History tracking using stack (with undo)
+* Clean modular class-based design
 
 ---
 
@@ -58,21 +75,23 @@ file2.txt
 
 ### Step 3: Word Similarity
 
-* Uses `unordered_map`
-* Counts:
+* Uses HashMap (`unordered_map`)
+* Finds:
 
   * Common words
-  * Unique words
+  * Total unique words
 
-[
-\text{Word Similarity} = \frac{\text{Common Words}}{\text{Unique Words}} \times 100
-]
+Formula:
+
+```
+Word Similarity = (Common Words / Unique Words) × 100
+```
 
 ---
 
 ### Step 4: Phrase Similarity
 
-* Uses **Queue (Linked List)**
+* Uses Queue (Linked List)
 * Sliding window of size 3
 
 Example:
@@ -83,23 +102,25 @@ structures are important
 are important concepts
 ```
 
-[
-Phrase Similarity = (Matching Phrases ÷ Total Unique Phrases) × 100
-]
+Formula:
+
+```
+Phrase Similarity = (Matching Phrases / Total Unique Phrases) × 100
+```
 
 ---
 
 ### Step 5: Final Score
 
-[
-\text{Final Score} = (0.4 × Word Similarity) + (0.6 × Phrase Similarity)
-]
+```
+Final Score = (0.4 × Word Similarity) + (0.6 × Phrase Similarity)
+```
 
 ---
 
 ### Step 6: History Management
 
-* Stored using **Stack (Linked List)**
+* Implemented using Stack (Linked List)
 * Supports:
 
   * View history
@@ -137,9 +158,9 @@ Final  : 54.77%
 | Data Structure | Purpose                            |
 | -------------- | ---------------------------------- |
 | Vector         | Store words & phrases              |
-| HashMap        | Word frequency & lookup            |
+| HashMap        | Fast lookup and frequency mapping  |
 | Queue          | Phrase generation (sliding window) |
-| Stack          | History & undo functionality       |
+| Linked List    | Stack for history + undo           |
 
 ---
 
@@ -159,48 +180,16 @@ g++ main.cpp -o main
 
 ---
 
-## 📄 Sample Input Files
+## 🎯 Learning Outcome
 
-### file1.txt
-
-```
-Data structures are very important in programming.
-```
-
-### file2.txt
-
-```
-Data structures are essential in coding and programming.
-```
+* Applied core DSA concepts in a real system
+* Understood how different data structures solve specific problems
+* Improved logic building by implementing everything from scratch
+* Learned debugging, integration, and modular design
 
 ---
 
-## 🎯 Why This Project Matters
+## 👨‍💻 Developers
 
-* Demonstrates practical use of multiple data structures
-* Shows real-world text analysis logic
-* Clean modular design improves readability and maintainability
-* Interactive features like history and undo add depth
-
----
-
-## 👨‍💻 Author
-
-Developed as a Data Structures project to demonstrate applied concepts in C++.
-
----
-
-## 📌 Future Improvements
-
-* Menu-based interaction system
-* GUI interface
-* Support for larger documents
-* Advanced NLP techniques
-
----
-
-## ⭐ Summary
-
-Syntexa combines clean design with core DSA concepts to build a functional and presentable text similarity system.
-
----
+* [Muhammad Ahtasham Ul Haq](https://www.linkedin.com/in/mr-ahtasham-ul-haq/)
+* [Hasnain Ali Asghar](https://www.linkedin.com/in/hasnain-ali-asghar-2123222a6/)
