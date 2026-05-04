@@ -75,14 +75,14 @@ public:
      */
     string loadContent(string filename){
         /* Base directory where all text files are stored */
-        string path = "C:/Users/hasnain ali/Desktop/Syntexa/Syntexa/";
+        //string path = "C:/Users/hasnain ali/Desktop/Syntexa/Syntexa/";
 
         /* Open the file by combining base path + filename */
-        ifstream infile(path + filename);
+        ifstream infile(filename);
 
         /* If file doesn't exist or can't be opened, report and exit early */
         if(!infile.is_open()){
-            cout << "File not found: " << path + filename << endl;
+            cout << "File not found: " <<filename << endl;
             return "";
         }
 
