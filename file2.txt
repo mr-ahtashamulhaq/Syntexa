@@ -1,0 +1,1 @@
+Data structures are essential in coding. They organize data and improve efficiency.

@@ -1,0 +1,1 @@
+Data structures are very important in programming. They help organize data efficiently.
