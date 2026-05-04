@@ -1,9 +1,10 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 #include <fstream>
 #include <vector>
 #include "Preprocessor.h"
 #include "SimilarityEngine.h"
+#include "Result.h"
 using namespace std;
 
 int main()
@@ -12,15 +13,16 @@ int main()
     string textA = " Data,  Structures!    ARE important In Programming.";
     string textB = "Data structures help in coding and programming";
     
-    Preprocessor P;
-    string processedText;
-    processedText = P.removePunctuation(textA);
-    processedText = P.toLowerCase(processedText);
-    vector<string> wordsA = P.tokenize(processedText);
+    Preprocessor P1;
+    Preprocessor P2;
+    P1.removePunctuation(textA);
+    P1.toLowerCase(textA);
+    vector<string> wordsA = P1.tokenize(textA);
 
-    processedText = P.removePunctuation(textB);
-    processedText = P.toLowerCase(processedText);
-    vector<string> wordsB = P.tokenize(processedText);
+    P2.removePunctuation(textB);
+    P2.toLowerCase(textB);
+    vector<string> wordsB = P2.tokenize(textB);
+
     for( string word : wordsA)
     {
         cout<<word<<" ";
@@ -37,11 +39,13 @@ int main()
 
     int common = SE.countCommonWords();
     int unique = SE.countUniqueWords();
-    double similarityPercentage = SE.computeWordSimilarity();
+    double wordSimilarityPercentage = SE.computeWordSimilarity();
     cout<<"\nCommon words : "<<common<<endl;
-    cout<<"\nUnique Words : "<<unique<<endl;
-    cout<<"\nSimilaroty percentage is : "<<similarityPercentage<<"%"<<endl;
+    cout<<"Unique Words : "<<unique<<endl;
+    cout<<"Similaroty percentage is : "<<wordSimilarityPercentage<<"%"<<endl;
     
+    Result R1(textA, textB,wordSimilarityPercentage, 9.0, 40.0 ); //added temporary numbers
+
     
     
     return 0;
