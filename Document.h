@@ -5,13 +5,8 @@
 using namespace std;
 
 class TextReader{
-    string file;
 
     public:
-        TextReader()
-        {
-            file = "";
-        }
 
         string loadContent(string filename)
         {
@@ -24,11 +19,12 @@ class TextReader{
             }
 
             string text;
+            string content;
             while(getline(infile, text))
             {
-                file += text;
-                file += " ";  // Add Space After Each Line
+                content += text;
+                content += " ";  // Add Space After Each Line
             }
-            return file;
+            return content;
         }
 };

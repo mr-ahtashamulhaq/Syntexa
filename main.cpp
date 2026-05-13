@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include<string>
 #include "Preprocessor.h"
 #include "SimilarityEngine.h"
 #include "PhraseDetector.h"
@@ -13,9 +14,28 @@ int main()
 {
     TextReader reader;
 
+    string pathA, pathB;
+
+    cout << "Paste 1st File to compare: ";
+    getline(cin, pathA);
+
+    cout << "Paste 2nd File to compare: ";
+    getline(cin, pathB);
+
+    // Remove surrounding quotes if present
+    auto stripQuotes = [](string& path) {
+        if (!path.empty() && path.front() == '"' && path.back() == '"') {
+            path = path.substr(1, path.size() - 2);
+        }
+    };
+
+    stripQuotes(pathA);
+    stripQuotes(pathB);
+
     // Load files
-    string textA = reader.loadContent("file1.txt");
-    string textB = reader.loadContent("file2.txt");
+    string textA = reader.loadContent(pathA);
+    string textB = reader.loadContent(pathB);
+
 
     if(textA.empty() || textB.empty())
     {
