@@ -60,6 +60,7 @@ public:
             cout << "Word   : " << temp->data.wordPercentage << "%\n";
             cout << "Phrase : " << temp->data.phrasePercentage << "%\n";
             cout << "Final  : " << temp->data.finalPercentage << "%\n\n";
+            cout << "Verdict: " << temp-> data.verdict << "\n";
 
             temp = temp->next;
         }

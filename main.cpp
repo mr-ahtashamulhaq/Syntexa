@@ -16,10 +16,10 @@ int main()
 
     string pathA, pathB;
 
-    cout << "Paste 1st File to compare: ";
+    cout << "Enter the path of the first file to compare:";
     getline(cin, pathA);
 
-    cout << "Paste 2nd File to compare: ";
+    cout << "Enter the path of the second file to compare:";
     getline(cin, pathB);
 
     // Remove surrounding quotes if present
@@ -87,6 +87,7 @@ int main()
     cout << "\nWord Similarity   : " << wordScore << "%";
     cout << "\nPhrase Similarity : " << phraseScore << "%";
     cout << "\nFinal Score       : " << finalScore << "%\n";
+    cout<< "Verdict: "<<res.displayverdict() << endl;
 
     cout << "\n==============================\n";
     history.displayHistory();
