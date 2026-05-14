@@ -1,0 +1,26 @@
+Name: Hasnain Ali Asghar
+SAP: 70173459
+First let’s separate required questions
+Q: Which method do you recommend and which do you reject?
+I recommend Dynamic Tokens (OTP) and reject Retina/Iris Scanning as the primary
+method. This choice is not based on which technology performs better, but on which
+failure can be undone.
+Q: Which "unrecoverable risk" is more acceptable?
+The risk of a False Negative locking out a sysadmin is more acceptable. That situation has
+workarounds, a second admin, an emergency override, a supervisor call. The harm ends by
+morning.
+Q: Why is biometric failure considered "unrecoverable"?
+If the biometric database is hacked, the employee cannot change their iris, ever. That
+stolen pattern follows them into banking, border control, and national ID systems for the
+rest of their life. The University caused permanent harm to a person who had no choice but
+to trust it.
+Q: Why is the OTP failure considered "recoverable"?
+If a token system is compromised, the University simply revokes the old token and issues a
+new one. The employee's identity is untouched. The incident is contained, ﬁxed, and
+closed.
+Q: Why does the University's culture and context matter here?
+The University is still upgrading its security, meaning it has not yet proven it can safely
+protect something as sensitive and permanent as biological data. Until that maturity is
+reached, it should not hold something it cannot give back if things go wrong.
+
+

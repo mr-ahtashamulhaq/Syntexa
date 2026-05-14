@@ -66,30 +66,25 @@ private:
 
     // PDF Read 
     string readPDF(const string& filename) {
-        /*
-        for undertanding if poppler does not work add basepath;
-        I am leaving it as it is for my version
-        */
-        string basePath = ".\\";
-        string exePath  = basePath + "poppler-26.02.0\\Library\\bin\\pdftotext.exe";
-        string input    = filename;
-        string output   = basePath + "temp.txt";
 
+    string basePath = "C:\\Users\\hasnain ali\\Desktop\\DSA Clone Project\\Syntexa\\";
+    string exePath  = basePath + "poppler-26.02.0\\Library\\bin\\pdftotext.exe";
+    string input    = filename;
+    string output   = basePath + "temp.txt";
 
-        string command = "\"" + exePath + "\" -enc UTF-8 \"" + input + "\" \"" + output + "\"";
+    string command =
+        "cmd /C \"\"" + exePath + "\" -enc UTF-8 \"" + input + "\" \"" + output + "\" > nul 2>&1\"";
 
-        // _popen() runs pdftotext through a PIPE instead of inheriting the
-        // console handle — so it physically cannot corrupt ENABLE_PROCESSED_OUTPUT
-        FILE* pipe = _popen(command.c_str(), "r");
-        if (!pipe) {
-            cout << "External utility execution failed" << endl;
-            return "";
-        }
-        _pclose(pipe);
+        int result = system(command.c_str());
+
+        if (result != 0) {
+        cout << "External utility execution failed\n";
+        return "";
+    }
 
         ifstream file(output);
         if (!file.is_open()) {
-            cout << "PDF conversion failed (Maybe BasePath is not correct)\n";
+            cout << "PDF conversion failed\n";
             return "";
         }
 

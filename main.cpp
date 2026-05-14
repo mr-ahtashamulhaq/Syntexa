@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include<string>
+#include<windows.h>
 #include "Preprocessor.h"
 #include "SimilarityEngine.h"
 #include "PhraseDetector.h"
@@ -35,6 +36,11 @@ int main()
     // Load files
     string textA = reader.loadContent(pathA);
     string textB = reader.loadContent(pathB);
+
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD mode = 0;
+    GetConsoleMode(hOut, &mode);
+    SetConsoleMode(hOut, mode | ENABLE_PROCESSED_OUTPUT | ENABLE_WRAP_AT_EOL_OUTPUT);
 
     if(textA.empty() || textB.empty())
     {
