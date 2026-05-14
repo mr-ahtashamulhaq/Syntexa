@@ -36,7 +36,6 @@ int main()
     string textA = reader.loadContent(pathA);
     string textB = reader.loadContent(pathB);
 
-
     if(textA.empty() || textB.empty())
     {
         cout << "Error loading files.\n";
@@ -92,6 +91,5 @@ int main()
     cout << "\n==============================\n";
     history.displayHistory();
     cout << "==============================\n";
-
     return 0;
 }
