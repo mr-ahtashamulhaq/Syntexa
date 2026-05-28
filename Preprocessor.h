@@ -1,8 +1,8 @@
 #pragma once
-#include<iostream>
+#include <iostream>
 #include <cctype>
 #include <vector>
-#include<string>
+#include <string>
 using namespace std;
 class Preprocessor
 {
@@ -14,11 +14,17 @@ class Preprocessor
             int j = 0;
             for(int i = 0; i < size; i++)
             {
-                if(isalnum(text[i]) || text[i] == ' ')
+                if(isalnum(text[i])) 
                 {
                     text[j] = text[i];
                     j++;
                 }
+                else
+                {
+                    text[j] = ' '; // Replace punctuation with a space.
+                    j++;
+                }
+
             }
             text.resize(j); // .resize() keep only first j characters remove everything after that.
         }
