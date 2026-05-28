@@ -1,6 +1,6 @@
 #pragma once
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 using namespace std;
 
 class Result
@@ -26,11 +26,20 @@ class Result
             verdict = displayverdict();
         }
 
-        string displayverdict(){
-            if(finalPercentage <= 100 && finalPercentage >= 85) verdict =  "Possible Plagiarism";
-            else if(finalPercentage >= 60 && finalPercentage < 85) verdict = "Highly Similar";
-            else if(finalPercentage >= 30 && finalPercentage < 60) verdict =  "Partially Similar";
-            else verdict = "Not Similar";
+        string displayverdict()
+        {
+            if(finalPercentage >= 60)
+                verdict =  "Possible Plagiarism";
+
+            else if(finalPercentage >= 40 && finalPercentage < 60) 
+                verdict = "Highly Similar";
+
+            else if(finalPercentage >= 20 && finalPercentage < 40)
+                verdict =  "Partially Similar";
+
+            else 
+                verdict = "Not Similar";
+            
             return verdict;
         }
 };
