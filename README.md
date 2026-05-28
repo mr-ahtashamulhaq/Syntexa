@@ -1,6 +1,6 @@
 # 🧠 Syntexa - Text Similarity Analyzer
 
-Syntexa is a **DSA Semester Project** built in C++ that compares two text files and evaluates how similar they are using both word-level and phrase-level analysis.
+Syntexa is a **DSA Semester Project** built in C++ that compares two text or PDF files and evaluates how similar they are using both word-level and phrase-level analysis.
 
 The goal was not just to build a working system, but to apply core data structure concepts in a clear and practical way.
 
@@ -25,11 +25,13 @@ We designed the system around:
 
 ## 🚀 Features
 
-* Word-based similarity using frequency mapping
-* Phrase-based similarity using sliding window
-* Combined final score using mathematical formula
-* History tracking using stack (with undo)
-* Clean modular class-based design
+* **PDF & Text Support:** Reads and extracts text from `.txt` and `.pdf` files using Poppler.
+* **Menu-Driven Interface:** Interactive terminal UI for multiple operations without restarting.
+* **Word-based similarity:** Using frequency mapping.
+* **Phrase-based similarity:** Using sliding window.
+* **Combined final score:** Using mathematical formula.
+* **History tracking:** Using a stack (with undo functionality).
+* **Clean modular class-based design.**
 
 ---
 
@@ -46,6 +48,7 @@ Syntexa/
 ├── Result.h
 ├── Document.h
 │
+├── poppler-26.02.0/ (For PDF Extraction)
 ├── file1.txt
 ├── file2.txt
 ```
@@ -56,19 +59,16 @@ Syntexa/
 
 ### Step 1: Input
 
-Reads two text files:
-
-```
-file1.txt
-file2.txt
-```
+Reads two files via an interactive menu. Supported formats:
+* `.txt`
+* `.pdf` (Uses Poppler `pdftotext` extraction utility)
 
 ---
 
 ### Step 2: Preprocessing
 
 * Convert to lowercase
-* Remove punctuation
+* Replace punctuation with spaces
 * Tokenize into words
 
 ---
@@ -77,8 +77,7 @@ file2.txt
 
 * Uses HashMap (`unordered_map`)
 * Finds:
-
-  * Common words
+  * Common words (taking frequency into account)
   * Total unique words
 
 Formula:
@@ -116,13 +115,18 @@ Phrase Similarity = (Matching Phrases / Total Unique Phrases) × 100
 Final Score = (0.4 × Word Similarity) + (0.6 × Phrase Similarity)
 ```
 
+The verdict is decided based on practical boundaries:
+* `> 60%`: Possible Plagiarism
+* `40% - 60%`: Highly Similar
+* `20% - 40%`: Partially Similar
+* `< 20%`: Not Similar
+
 ---
 
 ### Step 6: History Management
 
 * Implemented using Stack (Linked List)
 * Supports:
-
   * View history
   * Undo last comparison
 
@@ -132,21 +136,25 @@ Final Score = (0.4 × Word Similarity) + (0.6 × Phrase Similarity)
 
 ```
 ==============================
+      SYNTEXA MAIN MENU
+==============================
+1. Compare Two Files
+2. View History
+3. Undo Last Comparison
+4. Exit
+==============================
+Enter your choice: 1
+Enter the path of the first file to compare: file-1.pdf
+Enter the path of the second file to compare: file-2.pdf
+
+==============================
        TEXT SIMILARITY
 ==============================
 
-Word Similarity   : 68.75%
-Phrase Similarity : 45.45%
-Final Score       : 54.77%
-
-==============================
-
---- HISTORY ---
-
-1)
-Word   : 68.75%
-Phrase : 45.45%
-Final  : 54.77%
+Word Similarity   : 64.1026%
+Phrase Similarity : 2.04082%
+Final Score       : 26.8655%
+Verdict           : Partially Similar
 
 ==============================
 ```
