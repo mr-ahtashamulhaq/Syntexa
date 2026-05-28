@@ -1,6 +1,6 @@
 #pragma once
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 #include <vector>
 #include <unordered_map>
 using namespace std;
@@ -8,7 +8,7 @@ using namespace std;
 class SimilarityEngine
 {
     public:
-    unordered_map <string, int> freqA;
+    unordered_map <string, int> freqA; // word : how many times it appear
     unordered_map <string, int> freqB;
 
     void buildFrequencyMap(vector<string> words, unordered_map<string, int>& freq)
@@ -26,7 +26,7 @@ class SimilarityEngine
             string word = pair.first;
             if(freqB.find(word) != freqB.end()) // .find(word) return value if found otherwise it returns .end()
             {
-                similarCount++;
+                similarCount += min(pair.second, freqB[word]);
             }
         }
         return similarCount;
@@ -34,21 +34,21 @@ class SimilarityEngine
 
     int countUniqueWords()
     {
-        //count All words of A and then iteratte B and add only which are not common in A and B.
-        int uniqueCount = 0;
+        //count All words of A and All words of B and subtract similarCount
+        int totalA = 0;
+        int totalB = 0;
         for(const auto& pair : freqA)
         {
-            uniqueCount++;
+            totalA += pair.second;  // Adding the number of times the word actually appeared
         }
-
         for(const auto& pair : freqB)
         {
-            string word = pair.first;
-            if(freqA.find(word) == freqA.end())
-            {
-                uniqueCount++;
-            }
+            totalB += pair.second;
         }
+    
+        //subtract 
+        int uniqueCount = totalA + totalB - countCommonWords();
+
         return uniqueCount;
     }
 
